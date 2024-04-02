@@ -18,31 +18,16 @@ public class Application {
 	CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
 		return args -> {
 			Student james = new Student("James", "Bond", "james007@gmail.com", 21);
+			Student james2 = new Student("James", "Bender", "james008@gmail.com", 25);
 			Student anna = new Student("Anna", "Fortran", "anna2003@yandex.ru", 20);
+			studentRepository.saveAll(List.of(james, anna, james2));
 
-			System.out.println("Добавили студентов James и Anna");
-			studentRepository.saveAll(List.of(james, anna));
-
-			System.out.println("Количество студентов: ");
-			System.out.println(studentRepository.count());
-
-			studentRepository.findById(2L).ifPresentOrElse(
+			studentRepository.findStudentByEmail("james007@gmail.com").ifPresentOrElse(
 					System.out::println,
-					() -> System.out.println("Student with ID 2 not found"));
+					() -> System.out.println("Student with email = james007@gmail.com not found"));
 
-			studentRepository.findById(3L).ifPresentOrElse(
-					System.out::println,
-					() -> System.out.println("Student with ID 2 not found"));
-
-			System.out.println("Получаем всех студентов");
-			List<Student> students = studentRepository.findAll();
-			students.forEach(System.out::println);
-
-			System.out.println("Удаляем студента James");
-			studentRepository.deleteById(1L);
-
-			System.out.println("Количество студентов: ");
-			System.out.println(studentRepository.count());
+			studentRepository.findStudentsByFirstNameAndAgeGreaterThanEqual("James", 22)
+					.forEach(System.out::println);
 		};
 	}
 }

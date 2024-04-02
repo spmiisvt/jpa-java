@@ -26,8 +26,16 @@ public class Application {
 					System.out::println,
 					() -> System.out.println("Student with email = james007@gmail.com not found"));
 
-			studentRepository.findStudentsByFirstNameAndAgeGreaterThanEqual("James", 22)
+			studentRepository.selectStudentsWhereFirstNameAndAgeGreaterOrEqual("James", 22)
 					.forEach(System.out::println);
+
+			studentRepository.selectStudentsWhereFirstNameAndAgeGreaterOrEqualNative("James", 22)
+					.forEach(System.out::println);
+
+			System.out.println("Deleting James 2");
+			System.out.println(studentRepository.deleteStudentById(3L));
+			System.out.println(studentRepository.count());
+
 		};
 	}
 }

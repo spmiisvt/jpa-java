@@ -47,3 +47,4 @@ Ctrl + d
 > 
 > https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
 
+3. (branch lesson-2-3) Управляем запросами в ручную и модифицируем запрос удаления по умолчанию

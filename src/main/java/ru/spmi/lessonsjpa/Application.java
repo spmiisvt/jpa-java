@@ -1,9 +1,13 @@
 package ru.spmi.lessonsjpa;
 
+import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -17,25 +21,38 @@ public class Application {
 	@Bean
 	CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
 		return args -> {
-			Student james = new Student("James", "Bond", "james007@gmail.com", 21);
-			Student james2 = new Student("James", "Bender", "james008@gmail.com", 25);
-			Student anna = new Student("Anna", "Fortran", "anna2003@yandex.ru", 20);
-			studentRepository.saveAll(List.of(james, anna, james2));
+			generateRandomStudents(studentRepository);
 
-			studentRepository.findStudentByEmail("james007@gmail.com").ifPresentOrElse(
-					System.out::println,
-					() -> System.out.println("Student with email = james007@gmail.com not found"));
+			PageRequest pageRequest = PageRequest.of(
+					0,
+					5,
+					Sort.by( "firstName").ascending());
 
-			studentRepository.selectStudentsWhereFirstNameAndAgeGreaterOrEqual("James", 22)
-					.forEach(System.out::println);
-
-			studentRepository.selectStudentsWhereFirstNameAndAgeGreaterOrEqualNative("James", 22)
-					.forEach(System.out::println);
-
-			System.out.println("Deleting James 2");
-			System.out.println(studentRepository.deleteStudentById(3L));
-			System.out.println(studentRepository.count());
-
+			Page<Student> page = studentRepository.findAll(pageRequest);
+			System.out.println(page);
 		};
+	}
+
+	private void sorting(StudentRepository studentRepository) {
+		Sort sort = Sort.by( "firstName").ascending()
+				.and(Sort.by("age").descending());
+
+		studentRepository.findAll(sort)
+				.forEach(student -> System.out.println(student.getFirstName() + " " + student.getAge()));
+	}
+
+	private void generateRandomStudents(StudentRepository studentRepository) {
+		Faker faker = new Faker();
+		for (int i = 0; i < 20; i++) {
+			String firstName = faker.name().firstName();
+			String lastName = faker.name().lastName();
+			String email = String.format("%s.%s@gmail.com", firstName, lastName);
+			Student student = new Student(
+					firstName,
+					lastName,
+					email,
+					faker.number().numberBetween(17, 55));
+			studentRepository.save(student);
+		}
 	}
 }

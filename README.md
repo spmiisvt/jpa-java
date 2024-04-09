@@ -48,3 +48,20 @@ Ctrl + d
 > https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
 
 3. (branch lesson-2-3) Управляем запросами в ручную и модифицируем запрос удаления по умолчанию
+
+---
+## Занятие 3
+Сортировка и пагинация
+
+Перед тем как начать нужно добавить еще одну зависимость для автоматического заполнения базы данных
+```xml
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
+> JavaFaker - библиотека для генерации данных (Имена, фамилии, числа и т.д.)
+> 
+> https://github.com/DiUS/java-faker?tab=readme-ov-file
+

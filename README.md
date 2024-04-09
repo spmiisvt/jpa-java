@@ -65,3 +65,13 @@ Ctrl + d
 > 
 > https://github.com/DiUS/java-faker?tab=readme-ov-file
 
+---
+### Занятие 3.1
+Добавим еще одну таблицу в нашу базу данных: `student_id_card`
+
+Вам понадобиться sql запрос для того чтобы посмотреть две таблички вместе:
+```sql
+SELECT * FROM student JOIN student_id_card AS s ON student.id = s.student_id;
+```
+---
+

@@ -49,8 +49,21 @@ public class Application {
 
 			student.setStudentIdCard(studentIdCard);
 
-			student.enrollToCourse(new Course("Java beginner", "IT"));
-			student.enrollToCourse(new Course("Spring Data JPA", "IT"));
+//			student.enrollToCourse(new Course("Java beginner", "IT"));
+//			student.enrollToCourse(new Course("Spring Data JPA", "IT"));
+
+			student.addEnrollment(new Enrollment(
+					new EnrollmentId(1L, 1L),
+					student,
+					new Course("Java beginner", "IT"),
+					LocalDateTime.now()
+					));
+			student.addEnrollment(new Enrollment(
+					new EnrollmentId(1L, 1L),
+					student,
+					new Course("Spring Data JPA", "IT"),
+					LocalDateTime.now().minusDays(18)
+			));
 
 
 			studentRepository.save(student);

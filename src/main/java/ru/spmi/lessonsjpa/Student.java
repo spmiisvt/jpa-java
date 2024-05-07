@@ -167,7 +167,7 @@ public class Student {
         courses.add(course);
         course.getStudents().add(this);
     }
-    public void removeCourse(Course course) {
+    public void unEnrollCourse(Course course) {
         courses.remove(course);
         course.getStudents().remove(this);
     }

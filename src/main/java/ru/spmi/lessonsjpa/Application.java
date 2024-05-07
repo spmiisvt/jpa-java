@@ -47,8 +47,12 @@ public class Application {
 					"123456789",
 					student);
 
-
 			student.setStudentIdCard(studentIdCard);
+
+			student.enrollToCourse(new Course("Java beginner", "IT"));
+			student.enrollToCourse(new Course("Spring Data JPA", "IT"));
+
+
 			studentRepository.save(student);
 
 			studentRepository.findById(1L).ifPresent(s -> {

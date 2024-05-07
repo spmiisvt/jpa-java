@@ -75,3 +75,16 @@ SELECT * FROM student JOIN student_id_card AS s ON student.id = s.student_id;
 ```
 ---
 
+### Занятие 5
+
+Проверим сохранились ли данные в таблицы:
+```sql
+SELECT * FROM course; 
+```
+```sql
+SELECT * FROM enrollment; 
+```
+И попробуем объединить эти таблицы:
+```sql
+SELECT * FROM student JOIN enrollment ON student.id = enrollment.student_id JOIN course c ON enrollment.course_id = c.id;
+```
